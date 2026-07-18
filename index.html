@@ -16,28 +16,27 @@
 </head>
 <body>
 
+
+
 <div id="game">
-  <!-- ===== World: everything that the cinematic camera zooms ===== -->
+  <!-- ===== World (zoomed by the cinematic camera) ===== -->
   <div id="world">
     <div class="sky"></div>
     <div class="sun"></div>
-    <!-- Clouds: appearance in CSS, per-cloud speed/size inline -->
     <div class="cloud" style="top:6%;  animation-duration:70s;"></div>
     <div class="cloud" style="top:14%; animation-duration:95s;  animation-delay:-30s; scale:0.8;"></div>
     <div class="cloud" style="top:22%; animation-duration:120s; animation-delay:-70s; scale:0.6;"></div>
     <div class="hills"></div>
     <div class="city"><div class="city-strip" id="cityStrip"></div></div>
     <div id="npcLayer"></div>
-    <!-- One wide sidewalk: the hero's full running stage (road removed) -->
     <div class="sidewalk" id="sidewalk"></div>
-    <!-- Gameplay entities (player, obstacles, pickups, FX) -->
     <div id="entities">
       <div class="player-shadow" id="playerShadow"></div>
       <div class="player" id="player"></div>
     </div>
   </div>
 
-  <!-- ===== Screen-space UI (never zoomed) ===== -->
+  <!-- ===== Screen-space UI ===== -->
   <button class="ctrl-btn" id="pauseBtn" aria-label="Pause">⏸</button>
 
   <div class="hud">
@@ -46,24 +45,37 @@
     <span class="hud__lives" id="hudLives">❤️❤️❤️</span>
   </div>
 
-  <!-- Intro card -->
+  <!-- Intro card: device-aware CTA + character picker + PNG upload -->
   <div class="overlay" id="introOverlay">
-    <div class="overlay__title">🏃🏻‍➡️ DODGE THE CHAOS!</div>
+    <div class="overlay__title">🏃 DODGE THE CHAOS!</div>
     <div class="overlay__text">
       The city has gone bananas! Jump over the flying food<br>
-      and rogue carts · Grab ⭐ for +15 · You have 3 lives
+      and rogue carts · Jump again mid-air to DOUBLE JUMP!<br>
+      Grab ⭐ for +15 · Sky-high 💎 need a double jump: +40 · You have 3 lives
     </div>
-    <div class="overlay__cta">▶ TAP · CLICK · SPACE to run!</div>
+    <div class="overlay__label">Choose your runner</div>
+    <div class="interactive" id="introCharRow"></div>
+    <div class="overlay__label">…or upload your own PNG (max 1 MB, stays static)</div>
+    <div class="interactive">
+      <button class="p-btn" id="uploadBtn">📁 Upload PNG</button>
+    </div>
+    <div class="overlay__cta" id="introCta">▶ Press SPACEBAR to play!</div>
   </div>
 
-  <!-- Game-over card -->
+  <!-- Game-over card: fallen hero portrait + score / best -->
   <div class="overlay" id="overOverlay" hidden>
     <div class="overlay__title">💥 GAME OVER</div>
-    <div class="overlay__text" id="overStats">Score 00000 · Best 00000</div>
-    <div class="overlay__cta">▶ TAP · CLICK · SPACE to retry</div>
+    <div class="over-row">
+      <div class="over-row__char" id="overChar">🏃</div>
+      <div class="over-row__stats">
+        <div class="over-stat"><span class="over-stat__label">SCORE</span><span id="overScore">00000</span></div>
+        <div class="over-stat"><span class="over-stat__label">BEST</span><span id="overBest">00000</span></div>
+      </div>
+    </div>
+    <div class="overlay__cta" id="overCta">▶ Press SPACEBAR to retry</div>
   </div>
 
-  <!-- Pause panel: resume, sound, character selection -->
+  <!-- Pause panel: resume / sound / character / time of day / scenery -->
   <div class="pause-panel" id="pausePanel" hidden>
     <div class="pause-panel__title">⏸ Paused</div>
 
@@ -78,12 +90,28 @@
 
     <div class="pause-panel__row">
       <div class="pause-panel__label">Choose your runner</div>
-      <div id="charRow"><!-- character buttons injected by JS --></div>
+      <div id="pauseCharRow"></div>
+    </div>
+
+    <div class="pause-panel__row">
+      <div class="pause-panel__label">Time of day</div>
+      <button class="p-btn theme-btn p-btn--active" data-theme="day">☀️ Day</button>
+      <button class="p-btn theme-btn" data-theme="night">🌙 Night</button>
+    </div>
+
+    <div class="pause-panel__row">
+      <div class="pause-panel__label">Scenery</div>
+      <button class="p-btn scene-btn p-btn--active" data-scene="city">🏙️ City</button>
+      <button class="p-btn scene-btn" data-scene="desert">🏜️ Desert</button>
+      <button class="p-btn scene-btn" data-scene="snow">❄️ Snow</button>
     </div>
   </div>
 
-  <!-- Marching cast along the bottom during the intro -->
-  <div class="cast-parade" id="parade" style="position:absolute; bottom:12px; left:0; right:0; height:46px; z-index:25; pointer-events:none; overflow:hidden;"></div>
+  <!-- Hidden file input for the custom PNG character -->
+  <input type="file" id="pngInput" accept="image/png" style="display:none">
+
+  <!-- Intro cast parade -->
+  <div id="parade" style="position:absolute; bottom:12px; left:0; right:0; height:46px; z-index:25; pointer-events:none; overflow:hidden;"></div>
 </div>
 
 <script src="game.js"></script>
