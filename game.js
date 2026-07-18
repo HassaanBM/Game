@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   DODGE THE CHAOS — GAME LOGIC
+   DODGE THE CHAOS — GAME LOGIC 
    ------------------------------------------------------------
    JS = positions, physics, collisions, state, class toggling.
    CSS = every visual: themes, scenery, poses, animations.
