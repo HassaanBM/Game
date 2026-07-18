@@ -27,3 +27,6 @@ I like revisiting old ideas, so this project might get a few updates here and th
 This isn't the main project I'm working on—it's more like a little side quest. A fun detour while the bigger adventure is still under construction.
 
 If you found this repository, thanks for checking it out. I hope you have as much fun playing it as I had building it. 🎮
+
+
+[Play The Game](https://hassaanbm.github.io/RetroRunner/)

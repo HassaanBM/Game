@@ -18,7 +18,7 @@
 const CONFIG = {
   GAME_SPEED: 6.5,     /* base speed — screens/sec feel, device-independent */
   SPEED_RAMP: 0.004,   /* how quickly difficulty ramps with score           */
-  JUMP_V: -17,         /* jump impulse (negative = up)                      */
+  JUMP_V: -18,         /* jump impulse (negative = up)                      */
   GRAVITY: 0.85,       /* fall acceleration                                 */
   MAX_PNG_BYTES: 1024 * 1024,   /* 1 MB limit for custom characters        */
 };
@@ -42,9 +42,9 @@ $('overCta').textContent  = isTouch ? '▶ TAP to retry'  : '▶ Press SPACEBAR 
    option: no pose swap, no tilt, image stays as-is.
    ============================================================ */
 const CHARACTERS = [
-  { name: 'Sunny', run: '🏃',   jump: '🧍'   },
-  { name: 'Maya',  run: '🏃🏽‍♀️', jump: '🧍🏽‍♀️' },
-  { name: 'Andre', run: '🏃🏿',  jump: '🧍🏿'  },
+  { name: 'Sunny', run: '🏃🏻‍➡️',   jump: '🧍🏻'   },
+  { name: 'Maya',  run: '🏃🏽‍♀️‍➡️', jump: '🧍🏽‍♀️' },
+  { name: 'Andre', run: '🏃🏿‍➡️',  jump: '🧍🏿'  },
 ];
 let charIndex = 0;
 let customPNG = null;          /* data-URL of the uploaded image, if any   */
