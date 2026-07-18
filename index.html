@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Retro Runner 👾</title>
+
+<!-- Fav icons -->
+<link href="res/icon-light.png" rel="icon" media="(prefers-color-scheme: light)">
+<link href="res/icon-dark.png" rel="icon" media="(prefers-color-scheme: dark)">
+
+
+<link rel="stylesheet" href="game.css">
+
+
+</head>
+<body>
+
+<div id="game">
+  <!-- ===== World: everything that the cinematic camera zooms ===== -->
+  <div id="world">
+    <div class="sky"></div>
+    <div class="sun"></div>
+    <!-- Clouds: appearance in CSS, per-cloud speed/size inline -->
+    <div class="cloud" style="top:6%;  animation-duration:70s;"></div>
+    <div class="cloud" style="top:14%; animation-duration:95s;  animation-delay:-30s; scale:0.8;"></div>
+    <div class="cloud" style="top:22%; animation-duration:120s; animation-delay:-70s; scale:0.6;"></div>
+    <div class="hills"></div>
+    <div class="city"><div class="city-strip" id="cityStrip"></div></div>
+    <div id="npcLayer"></div>
+    <!-- One wide sidewalk: the hero's full running stage (road removed) -->
+    <div class="sidewalk" id="sidewalk"></div>
+    <!-- Gameplay entities (player, obstacles, pickups, FX) -->
+    <div id="entities">
+      <div class="player-shadow" id="playerShadow"></div>
+      <div class="player" id="player"></div>
+    </div>
+  </div>
+
+  <!-- ===== Screen-space UI (never zoomed) ===== -->
+  <button class="ctrl-btn" id="pauseBtn" aria-label="Pause">⏸</button>
+
+  <div class="hud">
+    <span class="hud__score" id="hudScore">SCORE 00000</span>
+    <span class="hud__best" id="hudBest">BEST 00000</span>
+    <span class="hud__lives" id="hudLives">❤️❤️❤️</span>
+  </div>
+
+  <!-- Intro card -->
+  <div class="overlay" id="introOverlay">
+    <div class="overlay__title">🏃🏻‍➡️ DODGE THE CHAOS!</div>
+    <div class="overlay__text">
+      The city has gone bananas! Jump over the flying food<br>
+      and rogue carts · Grab ⭐ for +15 · You have 3 lives
+    </div>
+    <div class="overlay__cta">▶ TAP · CLICK · SPACE to run!</div>
+  </div>
+
+  <!-- Game-over card -->
+  <div class="overlay" id="overOverlay" hidden>
+    <div class="overlay__title">💥 GAME OVER</div>
+    <div class="overlay__text" id="overStats">Score 00000 · Best 00000</div>
+    <div class="overlay__cta">▶ TAP · CLICK · SPACE to retry</div>
+  </div>
+
+  <!-- Pause panel: resume, sound, character selection -->
+  <div class="pause-panel" id="pausePanel" hidden>
+    <div class="pause-panel__title">⏸ Paused</div>
+
+    <div class="pause-panel__row">
+      <button class="p-btn p-btn--wide" id="resumeBtn">▶ Resume</button>
+    </div>
+
+    <div class="pause-panel__row">
+      <div class="pause-panel__label">Sound</div>
+      <button class="p-btn" id="muteBtn">🔊 Sound on</button>
+    </div>
+
+    <div class="pause-panel__row">
+      <div class="pause-panel__label">Choose your runner</div>
+      <div id="charRow"><!-- character buttons injected by JS --></div>
+    </div>
+  </div>
+
+  <!-- Marching cast along the bottom during the intro -->
+  <div class="cast-parade" id="parade" style="position:absolute; bottom:12px; left:0; right:0; height:46px; z-index:25; pointer-events:none; overflow:hidden;"></div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
